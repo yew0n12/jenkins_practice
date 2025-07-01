@@ -16,4 +16,4 @@ jobs:
           url: ${{ secrets.JENKINS_URL }}
           user: jnu
           token: ${{ secrets.JENKINS_API_TOKEN }}
-          job: test
+          job: cicd-test

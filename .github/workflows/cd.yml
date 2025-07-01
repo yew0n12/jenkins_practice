@@ -16,4 +16,4 @@ jobs:
           url: ${{ secrets.WEBHOOK_URL }}
           user: jnu
           token: ${{ secrets.JENKINS_API_TOKEN }}
-          job: cicd-test
+          job: job/cicd-test

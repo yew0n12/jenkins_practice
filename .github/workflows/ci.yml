@@ -12,6 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Check for syntax errors
+      - name: Run lint
         run: |
-          echo "PR 코드 문법/형식 검사 예제"
+          echo "PR 코드 문법/형식 검사"
+          # 여기에 실제 linters, 테스트 명령어를 추가하면 됨

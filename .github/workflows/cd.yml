@@ -1,21 +1,19 @@
-name: Continuous Deployment
+name: CD - Jenkins 배포 트리거
 
 on:
-  push:
-    branches:
-      - main
+  pull_request:
+    branches: [main]
+    types: [closed]
 
 jobs:
   deploy:
+    if: contains(github.event.pull_request.labels.*.name, 'build-full')
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-
-    - name: Trigger Jenkins deployment
-      env:
-        JENKINS_USER: ${{ secrets.JENKINS_USER }}
-        JENKINS_API_TOKEN: ${{ secrets.JENKINS_API_TOKEN }}
-      run: |
-        curl -u "$JENKINS_USER:$JENKINS_API_TOKEN" \
-        -X POST "http://168.131.223.227:8080/job/cicd-test/build"
+      - name: Jenkins 트리거 실행
+        uses: appleboy/jenkins-action@master
+        with:
+          url: ${{ secrets.JENKINS_URL }}
+          user: jnu
+          token: ${{ secrets.JENKINS_API_TOKEN }}
+          job: test

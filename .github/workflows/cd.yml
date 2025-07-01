@@ -7,7 +7,7 @@ on:
 
 jobs:
   deploy:
-    if: contains(github.event.pull_request.labels.*.name, 'build-full')
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - name: Jenkins 트리거 실행

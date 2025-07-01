@@ -6,13 +6,33 @@ on:
       - main
 
 jobs:
-  lint:
+  ci:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
 
-      - name: Run lint
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
         run: |
-          echo "PR 코드 문법/형식 검사"
-          # 여기에 실제 linters, 테스트 명령어를 추가하면 됨
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run lint (flake8)
+        run: |
+          pip install flake8
+          flake8 .
+
+      - name: Run unit tests (pytest)
+        run: |
+          pip install pytest
+          pytest tests/
+
+      - name: Run security checks (bandit)
+        run: |
+          pip install bandit
+          bandit -r .

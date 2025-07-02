@@ -17,4 +17,3 @@ jobs:
           user: jnu
           token: ${{ secrets.JENKINS_API_TOKEN }}
           job: cicd-test
-          insecure: true
